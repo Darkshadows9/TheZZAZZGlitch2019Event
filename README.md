@@ -10,4 +10,4 @@ ISSOtm: https://eldred.fr/
 
 !Stranck: https://instagram.com/stranck, https://twitter.com/LStranck
 
-Runea: 
+Runea: runea@protonmail.com

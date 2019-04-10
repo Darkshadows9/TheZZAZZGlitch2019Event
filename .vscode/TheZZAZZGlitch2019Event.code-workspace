@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "D:\\SourceCode\\TheZZAZZGlitch2019Event"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.c": "c",
+			"*.h": "c",
+			"*.rs": "rust",
+			"*.asm": "gbz80",
+			"*.py": "python",
+		}
+	}
+}

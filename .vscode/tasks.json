@@ -1,0 +1,114 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558 
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Build All Debug",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"dependsOn": [
+				"Build Pwnage 3 C Debug",
+				"Build Pwnage 3 Rust Debug",
+				"Build Pwnage 4 C Debug"
+			]
+		},
+		{
+			"type": "shell",
+			"label": "Build All Release",
+			"group": "build",
+			"dependsOn": [
+				"Build Pwnage 3 C Release",
+				"Build Pwnage 3 Rust Release",
+				"Build Pwnage 4 C Release"
+			]
+		},
+		{
+			"type": "shell",
+			"label": "Build Pwnage 3 C Debug",
+			"command": "gcc",
+			"args": ["-Wall", "-std=c99", "-pedantic", "-O0", "-g", "${workspaceFolder}/pwnage3/src_c/*", "-o", "${workspaceFolder}/debug/Pwnage3CDebug.exe"],
+			"options": {"cwd": "C:/MinGW/bin"},
+			"linux": {
+				"args": ["-Wall", "-std=c99", "-pedantic", "-O0", "-g", "${workspaceFolder}/pwnage3/src_c/*", "-o", "${workspaceFolder}/debug/Pwnage3CDebug"],
+				"options": {"cwd": "/usr/bin"}},
+			"group": "build",
+			"problemMatcher": {
+				"base": "$gcc",
+				"fileLocation": "absolute"}
+		},
+		{
+			"type": "shell",
+			"label": "Build Pwnage 3 Rust Debug",
+			"command": "rustc",
+			"args": ["-C", "opt-level=0", "-g", "${workspaceFolder}/pwnage3/src_rust/main.rs", "-o", "${workspaceFolder}/debug/Pwnage3RustDebug.exe"],
+			"options": {"cwd": "C:/MinGW/bin"},
+			"linux": {
+				"args": ["-C", "opt-level=0", "-g", "${workspaceFolder}/pwnage3/src_rust/main.rs", "-o", "${workspaceFolder}/debug/Pwnage3RustDebug"],
+				"options": {"cwd": "/usr/bin"}},
+			"group": "build",
+			"problemMatcher": {
+				"base": "$rustc",
+				"fileLocation": "absolute"}
+		},
+		{
+			"type": "shell",
+			"label": "Build Pwnage 4 C Debug",
+			"command": "gcc",
+			"args": ["-Wall", "-std=c99", "-pedantic", "-O0", "-g", "${workspaceFolder}/pwnage4/src_c/*", "-o", "${workspaceFolder}/debug/Pwnage4CDebug.exe"],
+			"options": {"cwd": "C:/MinGW/bin"},
+			"linux": {
+				"args": ["-Wall", "-std=c99", "-pedantic", "-O0", "-g", "${workspaceFolder}/pwnage4/src_c/*", "-o", "${workspaceFolder}/debug/Pwnage4CDebug"],
+				"options": {"cwd": "/usr/bin"}},
+			"group": "build",
+			"problemMatcher": {
+				"base": "$gcc",
+				"fileLocation": "absolute"}
+		},
+		{
+			"type": "shell",
+			"label": "Build Pwnage 3 C Release",
+			"command": "gcc",
+			"args": ["-Wall", "-std=c99", "-pedantic", "-O3", "${workspaceFolder}/pwnage3/src_c/*", "-o", "${workspaceFolder}/release/Pwnage3C.exe"],
+			"options": {"cwd": "C:/MinGW/bin"},
+			"linux": {
+				"args": ["-Wall", "-std=c99", "-pedantic", "-O3", "${workspaceFolder}/pwnage3/src_c/*", "-o", "${workspaceFolder}/release/Pwnage3C"],
+				"options": {"cwd": "/usr/bin"}},
+			"group": "build",
+			"problemMatcher": {
+				"base": "$gcc",
+				"fileLocation": "absolute"}
+		},
+		{
+			"type": "shell",
+			"label": "Build Pwnage 3 Rust Release",
+			"command": "rustc",
+			"args": ["-C", "opt-level=3", "${workspaceFolder}/pwnage3/src_rust/main.rs", "-o", "${workspaceFolder}/release/Pwnage3Rust.exe"],
+			"options": {"cwd": "C:/MinGW/bin"},
+			"linux": {
+				"args": ["-C", "opt-level=3", "${workspaceFolder}/pwnage3/src_rust/main.rs", "-o", "${workspaceFolder}/release/Pwnage3Rust"],
+				"options": {"cwd": "/usr/bin"}},
+			"group": "build",
+			"problemMatcher": {
+				"base": "$rustc",
+				"fileLocation": "absolute"}
+		},
+		{
+			"type": "shell",
+			"label": "Build Pwnage 4 C Release",
+			"command": "gcc",
+			"args": ["-Wall", "-std=c99", "-pedantic", "-O3", "${workspaceFolder}/pwnage4/src_c/*", "-o", "${workspaceFolder}/release/Pwnage4C.exe"],
+			"options": {"cwd": "C:/MinGW/bin"},
+			"linux": {
+				"args": ["-Wall", "-std=c99", "-pedantic", "-O3", "${workspaceFolder}/pwnage4/src_c/*", "-o", "${workspaceFolder}/release/Pwnage4C"],
+				"options": {"cwd": "/usr/bin"}},
+			"group": "build",
+			"problemMatcher": {
+				"base": "$gcc",
+				"fileLocation": "absolute"}
+		}
+	]
+}
