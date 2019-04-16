@@ -5,7 +5,7 @@ Will populate and clean up as I have time. Pwnage 4 is wholly unfinished at the 
 
 To build, load the workspace vile in .vscode, then run the relevant build command. "Build All Release" or "Build All Debug" for the lazy.
 
-I would suggest reading ISSOtm's writeup on the Pwnage challenges for context: https://eldred.fr/projects/fools2019#
+I would suggest reading ISSOtm's writeup on the Pwnage challenges for context: https://eldred.fr/projects/fools2019
 
 This was a team effort and couldn't have been done without the following people:
 

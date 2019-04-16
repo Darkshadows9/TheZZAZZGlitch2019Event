@@ -29,6 +29,8 @@ AE44:	B07D
 AE46:	B045
 AE48:	B069
 
+AE4A:
+
 AEF3:	0831		pop	hl
 AEF5:	ADAE		//constant for ^
 AEF7:	1898		ld	a,(de)
@@ -223,6 +225,27 @@ B02B:	2250		ldi	(hl),a
 B02D:	0831		pop	hl
 B02F:	AE18		//constant for ^
 B031:	1708		ld	sp,hl
+
+B045:	0831		pop	hl
+B047:	ADB0		//constant for ^
+B049:	ADC0		ld	b,(hl)
+B04B:	0831		pop	hl
+B04D:	ADAE		//constant for ^
+B04F:	1C85		ldi	a,(hl)
+					ld	h,(hl)
+					ld	l,a
+B051:	1FEE		ld	(hl),b
+B053:	1447		inc	hl
+B055:	4404		ld	b,h
+B057:	18DC		ld	c,l
+B059:	0831		pop	hl
+B05B:	ADAE		//constant for ^
+B05D:	ADBE		ld	(hl),c
+B05F:	1447		inc	hl
+B061:	1FEE		ld	(hl),b
+B063:	0831		pop	hl
+B065:	AE18		//constant for ^
+B067:	1708		ld	sp,hl
 
 B07D:	1898		ld	a,(de)
 B07F:	0D8E		ld	c,a

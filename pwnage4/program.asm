@@ -97,44 +97,44 @@ Bytecode (@de):
 	ReadBufferByte
 	UpdateChecksum
 	SetReadPtr 0xb16b
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	RotateBuffer
 	SetReadPtr 0xffe2
 	ReadBufferByte
 	UpdateChecksum2
 	WriteChecksum
 	SetReadPtr 0xb16c
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	RotateBuffer
 	SetReadPtr 0xff04
 	ReadBufferByte
 	UpdateChecksum
 	WriteChecksum
 	SetReadPtr 0xb16d
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	RotateBuffer
 	SetReadPtr 0xff05
 	ReadBufferByte
 	UpdateChecksum2
 	WriteChecksum
 	SetReadPtr 0xb16e
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	RotateBuffer
 	WriteLong 0xefbeadde
 	RotateBuffer
 	RotateBuffer
 	InitChecksumByte 0x55
 	SetReadPtr 0xf350
-	saveChecksumByteAndBufferReadPTR
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
+	saveChecksumIncrementBufferReadPointer
 .loop8 ; @ 0xb178
 	SetReadPtr 0xf350
 	loadChecksumByte
 	UpdateChecksum
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	loadChecksumByte
 	UpdateChecksum2
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	Scramble
 	RotateBuffer
 	Djnz 0xd5, 0xb178
@@ -143,16 +143,16 @@ Bytecode (@de):
 	InitChecksumByte 0xcc
 	SetReadPtr 0xadb1
 	UpdateChecksum2
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	RotateBuffer
 	UpdateChecksum2
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	RotateBuffer
 	UpdateChecksum2
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	RotateBuffer
 	UpdateChecksum2
-	saveChecksumByteAndBufferReadPTR
+	saveChecksumIncrementBufferReadPointer
 	RotateBuffer
 	SetReadPtr 0xf350
 	ReadBufferByte

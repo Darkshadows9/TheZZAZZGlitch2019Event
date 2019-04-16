@@ -22,13 +22,13 @@ AE2C SP table:
 [0] 04  AE4A HaltAndFinalize
 [0] 05  AF3B Scramble
 [0] 06  AF85 RotateBuffer
-[4] 07  AFE3 WriteLong
+[4] 07  AFE3 WriteScrambleBuffer
 [0] 08  B005 UpdateChecksum
 [0] 09  B013 UpdateChecksum2
 [?] 0A  0000
 [0] 0B  B033 WriteChecksum
 [3] 0C  B07D Djnz
-[0] 0D  B045 saveChecksumByteAndBufferReadPTR
+[0] 0D  B045 saveChecksumIncrementBufferReadPointer
 [0] 0E  B069 loadChecksumByte
 After this is AE4A
 
@@ -48,8 +48,7 @@ InitChecksumByte: de {16:AF0B} {16:AF15}
 ; Note: assumes {16:AF1B} == {16:AF27}
 ; AF1B = BufferReadPtr, AF27 = BufferReadPtr, AF31 = OUTPUT_BUFFER, AF3D = ScramblingBuffer
 ReadBufferByte: de {16:AF1B} {16:AF27} {16:AF31} {16:AF37}
-    pop hl ; BufferReadPtr @ AF1B
-    hl = [16:{16:AF1B}]
+    hl = [16:{16:AF1B}] ; BufferReadPtr @ AF1B
     {16:AF27} = hl + 1 ; BufferReadPtr @ AF27
     [8:{16:AF31}] = [8:hl] ; OUTPUT_BUFFER @ AF31
     sp = {16:AF37} ; Dispatch @ AF37
@@ -58,6 +57,7 @@ ReadBufferByte: de {16:AF1B} {16:AF27} {16:AF31} {16:AF37}
 Scramble: de {16:AF3D} {16:AF79} {16:AF81}
     pop hl ; ScramblingBuffer @ AF3D
     inc [hl]
+
     ld b, [hl]
     inc hl
     inc hl
@@ -69,10 +69,12 @@ Scramble: de {16:AF3D} {16:AF79} {16:AF81}
     ld a, [hl]
     xor b
     ld [hli], a
+
     ld b, a
     ld a, [hl]
     add a, b
     ld [hli], a
+
     srl a
     ld b, a
     ld a, [hld]
@@ -84,7 +86,7 @@ Scramble: de {16:AF3D} {16:AF79} {16:AF81}
     inc hl
     ld [hli], a
     pop hl ; OUTPUT_BUFFER @ AF79
-    xor [hl]
+    xor [hl] ; hl = OUTPUT_BUFFER
     ld [hli], a
     pop hl ; Dispatch @ AF81
     ld sp, hl
@@ -116,7 +118,10 @@ RotateBuffer: {16:AF87} {16:AF8F} {8:AF96} {16:AF9B} {16:AFA7} {16:AFB1} {16:AFB
     pop de ; OUTPUT_BUFFER @ AFBF
     pop hl ; $C801 @ AFC1
     pop af ; $FF00 @ AFC3
-    call ReadBufferBytes
+    call CopyBytes: (
+        hl to de
+        for bc bytes
+    )
     pop hl ; OutBufWrappingByte @ AFC9
     ld a, [hli]
     pop hl ; $C9AF @ AFCF
@@ -129,7 +134,7 @@ RotateBuffer: {16:AF87} {16:AF8F} {8:AF96} {16:AF9B} {16:AFA7} {16:AFB1} {16:AFB
     ld sp, hl
 
 ; AFE5 = ScramblingBuffer, B001 = Dispatch
-WriteLong: de {16:AFE5} {16:B001}
+WriteScrambleBuffer: de {16:AFE5} {16:B001}
     [32:{16:AFE5}] = [32:de] ; ScramblingBuffer @ AFE5
     de += 4
     sp = {16:B001} ; Dispatch @ B001
@@ -158,7 +163,7 @@ UpdateChecksum2: de {16:B015} {8:B018} {16:B01D} {16:B023} {16:B029} {16:B02F}
     ld [hli], a
     pop hl ; ChecksumByte @ B01D
     ld a, [hli]
-    pop hl ; OUTPUT_BUFFER @ B023 //buffer?
+    pop hl ; OUTPUT_BUFFER @ B023
     add a, [hl]
     pop hl ; ChecksumByte @ B029
     ld [hli], a
@@ -198,18 +203,17 @@ Djnz: de {16:B08F} {16:B0A1} {16:B0AF}
 
 ; Copies ChecksumByte @ B047 to [BufferReadPtr @ B04D]. Saves [BufferReadPtr @ B04D] + 1 to BufferReadPtr @ B05B
 ; B047 = ChecksumByte, B04D = BufferReadPtr, B05B = BufferReadPtr, B065 = Dispatch
-saveChecksumByteAndBufferReadPTR: de {16:B047} {16:B04D} {16:B05B} {16:B065}
+saveChecksumIncrementBufferReadPointer: de {16:B047} {16:B04D} {16:B05B} {16:B065}
     pop hl ; ChecksumByte @ B047
     ld b, [hl] ; Loads ChecksumByte @ B047 into b
     pop hl ; BufferReadPtr @ B04D
     hl = [16:hl]
     ld [hl], b ; Saves the ChecksumByte inside [[BufferReadPtr @ B04D]]
+
     inc hl
-    ld b, h
-    ld c, l ; bc = [BufferReadPtr @ B04D] + 1
+    ld bc, hl
     pop hl ; BufferReadPtr @ B05B
-    ld [hl], c
-    inc hl
+    ld [hli], c
     ld [hl], b ; Saves the BC pointer inside BufferReadPtr @ B05B
     pop hl ; Dispatch @ B065
 
@@ -239,7 +243,7 @@ HaltAndFinalize:
     call SwitchSRAMBank3 ; D92E
     ld bc, $01B0
     ld de, $A100
-    ld hl, wOverworldMap
+    ld hl, OUTPUT_BUFFER
     call CopyBytes
     call SwitchSRAMBank2 ; D920
     ld a, $01
