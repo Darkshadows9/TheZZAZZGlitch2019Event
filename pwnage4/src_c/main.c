@@ -16,17 +16,9 @@ int main(int argc, char *argv[])
 	}
 	struct encoder_s data;
     saveFileRead(argv[argc - 1], &data);
-	
-    if(options.decode)
-    {
-        printf("-[d]ecode flag detected.\nDecoding save file...\n");
-        decoderRun(&data);
-    }
-    else
-    {
-        printf("Running encoder...\n");
-	    encoderRun(&data);
-    }
+
+    printf("Running encoder...\n");
+	encoderRun(&data);
 
 	saveFileWrite(argv[argc - 1], &data);
 	return EXIT_SUCCESS;

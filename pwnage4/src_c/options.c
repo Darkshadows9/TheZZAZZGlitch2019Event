@@ -9,9 +9,6 @@ void parseTerminalOptions(int argc, char *argv[], struct options_s *options)
 		case 'h':
 			options->help = true;
 			break;
-		case 'd':
-			options->decode = true;
-			break;
 		}
 	}
 	return;
@@ -28,11 +25,10 @@ void printHelp(int argc, char *argv[])
 	printf("Use the following format:\n");
 	printf("[program_name] [flags] [file]\n\n");
 	printf("Flags:\n");
-	printf("[-h]elp: Display this help message. Also displayed when there's less than one argument for the program.\n");
-	printf("[-d]ecode: Decode instead of encode.\n");
+	printf("[-h]elp: Display this help message. Also displayed when there's less than one argument, e.g. no file was specified.\n");
 	printf("\n");
 	printf("Example:\n");
 	printf("%s \"fools.sav\"\n", argv[0]);
-	printf("%s -r \"fools pwnage4 clean.sav\"\n", argv[0]);
+	printf("%s \"fools pwnage4 clean.sav\"\n", argv[0]);
 	return;
 }

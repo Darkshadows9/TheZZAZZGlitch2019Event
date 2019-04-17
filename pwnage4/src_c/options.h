@@ -8,7 +8,6 @@
 struct options_s
 {
 	bool help;
-	bool decode;
 };
 
 void parseTerminalOptions(int argc, char *argv[], struct options_s *options);

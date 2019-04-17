@@ -8,7 +8,7 @@ Bytecode (@de):
 	SetReadPtr 0xfcdf
 	InitChecksumByte 0x7f
 	WriteLong 0x8c10e62f
-.loop1 ; @ 0xb0bd
+.loop0 ; @ 0xb0bd
 	ReadBufferByte
 	Scramble
 	UpdateChecksum
@@ -24,7 +24,7 @@ Bytecode (@de):
 	SetReadPtr 0xfa7a
 	InitChecksumByte 0xc2
 	WriteLong 0x6af528c2
-.loop2 ; @ 0xb0d5
+.loop1 ; @ 0xb0d5
 	ReadBufferByte
 	Scramble
 	UpdateChecksum2
@@ -34,7 +34,7 @@ Bytecode (@de):
 	RotateBuffer
 
 	SetReadPtr 0xf84e
-.loop3 ; @ 0xb0e2
+.loop2 ; @ 0xb0e2
 	ReadBufferByte
 	RotateBuffer
 	Djnz 0x3, 0xb0e2
@@ -42,7 +42,7 @@ Bytecode (@de):
 	SetReadPtr 0xf859
 	InitChecksumByte 0x6
 	WriteLong 0xef7305a6
-.loop4 ; @ 0xb0f2
+.loop3 ; @ 0xb0f2
 	ReadBufferByte
 	Scramble
 	UpdateChecksum2
@@ -58,7 +58,7 @@ Bytecode (@de):
 	SetReadPtr 0xde41
 	WriteLong 0x2a7fec38
 	InitChecksumByte 0x3c
-.loop5 ; @ 0xb10a
+.loop4 ; @ 0xb10a
 	ReadBufferByte
 	UpdateChecksum
 	Scramble
@@ -70,7 +70,7 @@ Bytecode (@de):
 	SetReadPtr 0xde99
 	InitChecksumByte 0xe2
 	WriteLong 0x4bfc1115
-.loop6 ; @ 0xb11e
+.loop5 ; @ 0xb11e
 	ReadBufferByte
 	Scramble
 	UpdateChecksum
@@ -82,7 +82,7 @@ Bytecode (@de):
 	WriteLong 0xa23f387c
 	InitChecksumByte 0x16
 	SetReadPtr 0xa003
-.loop7 ; @ 0xb132
+.loop6 ; @ 0xb132
 	ReadBufferByte
 	Scramble
 	UpdateChecksum2
@@ -127,7 +127,7 @@ Bytecode (@de):
 	SetReadPtr 0xf350
 	saveChecksumIncrementBufferReadPointer
 	saveChecksumIncrementBufferReadPointer
-.loop8 ; @ 0xb178
+.loop7 ; @ 0xb178
 	SetReadPtr 0xf350
 	loadChecksumByte
 	UpdateChecksum
